@@ -9,6 +9,32 @@ Copyright 2025 Axiom Data Science, LLC
 
 See LICENSE for details.
 
+
+Someone had to write a process that could safely wrap python lines in a way
+consistent with PEP-8 and for some reason black and other formatters can't.
+So this is a CLI that can do it and I can wrap that in a macro in vim and
+VSCode.
+
+The process takes a single line as input via stdin and wraps the python
+string at the 80th column by default, but can be overridden with the '-l'
+argument. Word boundaries are respected when wrapping the string and indents
+are assumed to be spaces. I won't support tabs for religious reasons.
+
+# Examples
+
+```
+echo '    error = "this is a ridiculously long explanation that needs to be wrapped appropriately in order for it to be PEP-8",' | pylinefix
+```
+Produces
+
+```
+   error = (
+       "this is a ridiculously long explanation that needs to be wrapped "
+       "appropriately in order for it to be PEP-8"
+   ),
+```
+
+
 Building
 --------
 
@@ -26,13 +52,18 @@ To run the binary without building a release version or installing to a locally 
 
 For details about `cargo` and using `cargo`, please see [The Cargo Book](https://doc.rust-lang.org/cargo/commands/index.html)
 
-Docker
-------
 
-To build the docker image:
+Usage
+-----
 
-    docker build -t pylinefix .
+```
+Program Arguments
 
-To run the image as a docker container
+Usage: pylinefix [OPTIONS]
 
-    docker run -it --rm pylinefix
+Options:
+  -l, --linewrap <LINEWRAP>  [default: 80]
+  -s, --str-char <STR_CHAR>  [default: "]
+  -h, --help                 Print help
+  -V, --version              Print version
+```

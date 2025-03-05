@@ -1,5 +1,3 @@
-![Pipeline Status](http://git.axiom/axiom/pylinefix/badges/main/pipeline.svg)
-
 pylinefix
 ===============
 
